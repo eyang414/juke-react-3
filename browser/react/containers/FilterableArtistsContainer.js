@@ -7,7 +7,6 @@ export default class FilterableArtistsContainer extends React.Component {
     constructor (props){
         super(props);
         this.state = {
-            inputValue: '',
             artists: this.props.artists
         };
         this.handleChange = this.handleChange.bind(this);
@@ -26,18 +25,13 @@ export default class FilterableArtistsContainer extends React.Component {
 
     handleChange (event){
         let inputValue = event.target.value;
-        let artists = this.state.artists;
-
-        if (!inputValue) {
-            this.setState({artists: this.props.artists});
-            return;
-        }
+        let artists = this.props.artists;
 
         let filteredArtists = artists.filter((artist) => {
-            return artist.name.toLowerCase().startsWith(inputValue.toLowerCase());
+            return artist.name.toLowerCase().includes(inputValue.toLowerCase());
         })
 
-        this.setState({inputValue, artists: filteredArtists});
+        this.setState({artists: filteredArtists});   
     }
 
     render (){
